@@ -33,7 +33,7 @@ set smartcase		" Do smart case matching
 set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 set hidden             " Hide buffers when they are abandoned
-"set mouse=a		" Enable mouse usage (all modes)
+set mouse=c		" Enable mouse usage (all modes)
 
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
@@ -63,17 +63,29 @@ source $VIMRUNTIME/ftplugin/man.vim " using ':Man' to get help, equivalent to 'K
 set t_Co=256
 "set background=light
 "colorscheme solarized
-colorscheme molokai
+"colorscheme molokai
 "colorscheme django
 hi Todo             ctermfg=blue ctermbg=yellow
-hi Visual           ctermbg=238
+hi Visual           ctermbg=195
 hi StatusLine       ctermfg=64  ctermbg=232
 hi StatusLineNC     ctermfg=237 ctermbg=178
 hi PmenuSel         ctermfg=253 ctermbg=238
 hi Pmenu            ctermfg=81  ctermbg=235
 hi MatchParen       ctermfg=18  ctermbg=172
-hi LineNr           ctermfg=178 ctermbg=234
-hi CursorLine       ctermbg=22
+hi LineNr           ctermfg=55 ctermbg=72
+hi CursorLine       ctermbg=253
+
+"C/C++ highlight
+hi Comment ctermfg=7
+hi PreProc ctermfg=28
+hi Type ctermfg=20
+hi Constant ctermfg=9
+hi Statement ctermfg=208
+hi Special ctermfg=1
+hi String ctermfg=140
+hi cCppString ctermfg=140
+hi Number ctermfg=red
+hi Label ctermfg=171
 
 " show trailing spaace(s): http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -87,6 +99,9 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 
 " use thrift.vim to highlit thrfit file
 autocmd BufNewFile,BufRead *.thrift set ft=thrift
+
+" use thrift.vim to highlit thrfit file
+autocmd BufNewFile,BufRead *.conf set ft=nginx
 
 " use python.vim to highlit thrfit file
 autocmd BufNewFile,BufRead *.py set ft=python
@@ -110,6 +125,7 @@ set nu " 'number': show line number
 set nows " 'nowrapscan': searching stops when reaching the end of file
 set fdm=syntax " 'foldmethod': fold multi lines by syntax
 set fdl=9999 " 'foldlevel': unfold automatically when opening a file
+set encoding=utf-8
 set fencs=utf-8,gbk " 'fileencodings'
 set nohls " 'hlsearch': highlight search key
 set nomodeline " modelines have historically been a source of security/resource vulnerabilities -- disable by default, even when 'nocompatible' is set
@@ -325,107 +341,41 @@ endif
 let php_folding = 2
 
 " --------------------------------------------------------------------------- "
-" bufexplorer settings
-
-let g:bufExplorerFindActive = 0
-
-" --------------------------------------------------------------------------- "
-" nerdtree settings
-
-let g:NERDTreeIgnore = ['\.orig$', '\.o$', '\.a$', '\.so$', '\.log$', '^cscope', 'tags', 'core', 'a.out']
-let g:NERDTreeWinSize = 24
-
-" --------------------------------------------------------------------------- "
-" neocomplcache settings
-
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
-
-let g:neocomplete#max_list = 25
-
-let g:neocomplete#enable_fuzzy_completion = 1
-
-let g:neocomplete#enable_ignore_case = 1
-let g:neocomplete#enable_smart_case = 1
-
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" --------------------------------------------------------------------------- "
 " tagbar settings
 
 let g:tagbar_width = 24
 
-" --------------------------------------------------------------------------- "
-" ms-windows settings
-
-"autocmd vimEnter * simalt ~x " maximize when launched
-"set guicursor=a:block-blinkoff0
-
-"set guifont=Dejavu\ Sans\ Mono:h12
-"set guioptions-=T " toolbar
-"set guioptions-=m " menubar
-"set guioptions-=l " same as 'r'
-"set guioptions-=L " same as 'R'
-"set guioptions-=r " right-hand scrollbar always
-"set guioptions-=R " right-hand scrollbar is presented when is a vsplit window
-"set guioptions-=b " bottom scrollbar
-
-	"-------------------------------------------------------------------------
-	"vundle 配置
-	"------------------------------------------------------------------------
-	"vundle {
-	set rtp+=~/.vim/bundle/vundle/
-	" " 如果在windows下使用的话，设置为
-	" " set rtp+=$HOME/.vim/bundle/vundle/
-	call vundle#rc()
-	"}
-	" "
-	"let Vundle manage Vundle
-	" "required!
-	Bundle 'gmarik/vundle'
-	"
-	" My Bundles here:
-	" original repos on github
-	" github上的用户写的插件，使用这种用户名+repo名称的方式
-	" Bundle 'tpope/vim-fugitive'
-	" Bundle 'Lokaltog/vim-easymotion'
-	" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-	" Bundle 'tpope/vim-rails.git'
-	" vim-scripts repos
-	" vimscripts的repo使用下面的格式，直接是插件名称
-	Bundle 'tagbar'
-	Bundle 'SuperTab'
-	Bundle 'vimwiki'
-	Bundle 'winmanager'
-	Bundle 'bufexplorer.zip'
-	Bundle 'The-NERD-tree'
-	Bundle 'matrix.vim--Yang'
-	Bundle 'FencView.vim'
-	Bundle 'Conque-Shell'
-	Bundle 'Vimpress'
-	Bundle 'Markdown'
-	Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
-	Bundle 'c.vim'
-	Bundle 'python.vim'
-	Bundle 'a.vim'
-	Bundle 'snipMate'
-	Bundle 'mark'
-    Bundle 'solarnz/thrift.vim'
-	"non github reposo
-	"非github的插件，可以直接使用其git地址
-	"Bundle 'git://git.wincent.com/command-t.git'
-	"Brief help
-	":BundleList          - list configured bundles
-	":BundleInstall(!)    - install(update) bundles
-	":BundleSearch(!) foo - search(or refresh cache first) for foo
-	":BundleClean(!)      - confirm(or auto-approve) removal of
-	"       unused bundles
-	"vundle主要就是上面这个四个命令，例如BundleInstall是全部重新安装，BundleInstall!则是更新一般安装插件的流程为，先BundleSearch一个插件，然后在列表中选中，按i安装安装完之后，在vimrc中，添加Bundle 'XXX'，使得bundle能够加载，这个插件，同时如果需要配置这个插件，也是在vimrc中设置即可
-	" see :h vundle for more details or wiki for FAQ
-	" NOTE: comments after Bundle command are not allowed..
+"-------------------------------------------------------------------------
+"vundle 配置
+"------------------------------------------------------------------------
+"vundle {
+set rtp+=~/.vim/bundle/vundle/
+" " 如果在windows下使用的话，设置为
+" " set rtp+=$HOME/.vim/bundle/vundle/
+call vundle#rc()
+"}
+" "
+"let Vundle manage Vundle
+" "required!
+Bundle 'gmarik/vundle'
+Bundle 'tagbar'
+Bundle 'winmanager'
+Bundle 'Conque-Shell'
+Bundle 'c.vim'
+Bundle 'a.vim'
+Bundle 'mark'
+Bundle 'nginx.vim'
+Bundle 'solarnz/thrift.vim'
+Bundle 'Valloric/YouCompleteMe'
+"non github reposo
+"非github的插件，可以直接使用其git地址
+"Bundle 'git://git.wincent.com/command-t.git'
+"Brief help
+":BundleList          - list configured bundles
+":BundleInstall(!)    - install(update) bundles
+":BundleSearch(!) foo - search(or refresh cache first) for foo
+":BundleClean(!)      - confirm(or auto-approve) removal of
+"       unused bundles
+"vundle主要就是上面这个四个命令，例如BundleInstall是全部重新安装，BundleInstall!则是更新一般安装插件的流程为，先BundleSearch一个插件，然后在列表中选中，按i安装安装完之后，在vimrc中，添加Bundle 'XXX'，使得bundle能够加载，这个插件，同时如果需要配置这个插件，也是在vimrc中设置即可
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
